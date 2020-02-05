@@ -1,0 +1,157 @@
+<h4 id="judul">Pesanan Baru</h4>
+<div id='pesananContent'></div>
+  
+
+  <script>
+    
+    $(document).ready(function(){
+      loadPesanan();
+      listPesanan();
+      
+        
+    });
+
+    function loadPesanan(){
+      $('#pesananContent').load('/pesananData');
+    }
+
+
+    function lanjutkanPesanan(){
+      let kode = $('#kode').val();  
+      let namaPemesan = $('#pemesan').val();
+      let nomorMeja = $('#listMeja :selected').val();
+      let nomorMenu = $('#listMenu :selected').val();
+      let jumlah = $('#jumlahPesanan').text();
+      let totalHarga = $('#totalPembayaran').text();
+      if(namaPemesan=='' || nomorMeja ==''||nomorMenu =='' || jumlah==''){
+        alert('Beberapa data kosong!');
+      }else{
+        $.ajax({
+          url: '/lanjutkanPesanan',
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({nomortrx: kode, status: 1, nama:namaPemesan, total: totalHarga, noMeja: nomorMeja}),
+          success: function(data){
+            if(data=='OK!'){
+              alert('Pesanan Berhasil DIsimpan');
+              $('#pesananContent').load('/pesananData');
+            }
+          }
+        })
+      }
+    }
+
+    function tambah(){
+      let jumlah = $('#jumlahPesanan').text();
+      jumlah++;
+      let hargaSatuan = $('#hargaSatuan').val();
+      $('#jumlahPesanan').text(jumlah);
+      if(hargaSatuan !=='' || $hargaSatuan!==0){
+        hitungTotal(jumlah);
+      }
+    }
+
+    function kurang(){
+      let jumlah = $('#jumlahPesanan').text();
+      jumlah--;
+      let hargaSatuan = $('#hargaSatuan').val();
+      $('#jumlahPesanan').text(jumlah);
+      if(hargaSatuan !=='' || $hargaSatuan!==0){
+        hitungTotal(jumlah);
+      }
+    }
+
+    function hitungTotal(jumlah){
+      let hargaSatuan = $('#hargaSatuan').val();
+      let total = hargaSatuan * jumlah;
+      $('#totalHarga').val(total);
+    }
+
+    function cekHarga(){
+      let idMenu = $('#listMenu :selected').val();
+      let jumlah = $('#jumlahPesanan').text();
+      $.ajax({
+        url: '/cekHarga',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({id: idMenu}),
+        success: function(data){
+          $('#hargaSatuan').val(data[0].harga);
+          $('#totalHarga').val(data[0].harga*jumlah);
+        }
+      });
+      
+    }
+
+    function prosesPesanan(){
+      let kode = $('#kode').val();  
+      let namaPemesan = $('#pemesan').val();
+      let nomorMeja = $('#listMeja :selected').val();
+      let nomorMenu = $('#listMenu :selected').val();
+      let jumlah = $('#jumlahPesanan').text();
+      let total = $('#totalHarga').val();
+      if(namaPemesan=='' || nomorMeja ==''||nomorMenu =='' || jumlah==''){
+        alert('Beberapa data kosong!');
+      }else{
+        $.ajax({
+          url: '/tambahPesanan',
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({pemesan: namaPemesan, noMeja: nomorMeja, idMenu: nomorMenu, jmlPesanan: jumlah, nomortrx: kode,  totalHarga: total}),
+          success: function(){
+            $('#listPesanan').html('');
+            listPesanan();
+          }
+        })
+      }
+
+    }
+
+    function listPesanan(){
+      let kode = $('#kode').val(); 
+      let totalPembayaran = 0;
+      $.ajax({
+        url: '/listPesanan',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({nomortrx: kode}),
+        success: function(data){
+          let dataPesanan ='';
+          let no = 1;
+         for(let i=0; i<=data.length-1; i++){
+           totalPembayaran += data[i].totalHarga;
+           dataPesanan +=
+           '<tr id="order">'+
+              '<td>'+no+'</td>'+
+              '<td>'+data[i].nama+'</td>'+
+              '<td>'+data[i].jmlPesanan+'</td>'+
+              '<td>'+data[i].totalHarga+'</td>'+
+              '<td>'+'<button class="btn btn-danger" onclick="hapusPesanan('+data[i].id+')">Hapus</button>'+'</td>'+
+           '</tr>'
+           no++;
+         }
+         $('#listPesanan').append(dataPesanan);
+         $('#totalPembayaran').text(totalPembayaran);
+
+       }
+     });
+    }
+
+    function hapusPesanan(kode){
+      $.ajax({
+        url: '/hapusPesanan',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({id: kode}),
+        success: function(data){
+        if (data=='OK!'){
+          $('#listPesanan').html('');
+            listPesanan();
+        }
+        }
+      })
+    }
+
+   
+  </script>
+

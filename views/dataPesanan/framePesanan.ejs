@@ -1,0 +1,79 @@
+<h4 id="judul">Data Pesanan</h4>
+<div class="container-fluid-2 pt-2">
+  <div class="row" id="dataListPesanan">
+
+  </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        loadListPesanan();
+    });
+
+    function loadListPesanan(){
+      $.ajax({
+        url: '/listPesanan1',
+        method: 'GET',
+        contentType: 'application/json',
+        success: function(data){
+          let listPesanan = '';
+          let no = 1;
+          for(let i = 0; i <= data.length-1; i++){
+            listPesanan += 
+            '<div class="card mx-2 mb-3">'+
+                '<div class="card-header">'+
+                  '<input type="hidden" class="form-control" id="kode" value='+data[i].nomortrx+'>'+
+                    '<table class="table">'+
+                    '<tbody>'+
+                      '<tr>'+
+                        '<td>Nomor Meja</td>'+
+                        '<td class="text-right"><h5>'+data[i].nomorMeja+'</h5></td>'+
+                     ' </tr>'+
+                      '<tr>'+
+                        '<td>Atas Nama</td>'+
+                        '<td class="text-right"><h5>'+data[i].pemesan+'</h5></td>'+
+                     ' </tr>'+
+                    '</tbody>'+
+                  '</table>'+
+                '</div>'+
+                '<div class="card-body">'+
+                    '<table class="table table-bordered">'+
+                        '<thead>'+
+                            '<tr>'+
+                                '<th>Menu</th>'+
+                                '<th>Jumlah</th>'+
+                            '</tr>'+
+                        '</thead>'+
+                        '<tbody>'+
+                            '<tr>'+
+                                '<td><ol style="list-style-type: lower-alpha;"><li>'+data[i].menu+'</li><ol></td>'+
+                                '<td><ol style="list-style-type: lower-alpha;"><li>'+data[i].jumlah+'</li><ol></td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                    '</table>'+
+                    '<button class="btn btn-success"'+'onclick="bayarPesanan()">Lanjutkan Pesanan</button>'+
+                    '</div>'+
+                '</div>'
+          }
+          $('#dataListPesanan').append(listPesanan);
+        }
+      })
+    };
+
+    function bayarPesanan(){
+      let nomor = $('#kode').val();
+      $.ajax({
+          url: '/bayarPesanan',
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({nomortrx: nomor, status: 2}),
+          success: function(data){
+          if (data=='OK!'){
+            alert('Pesanan Berhasil di Proses');
+            $('#dataListPesanan').html('');
+            loadListPesanan();
+          }
+        }
+      })
+    }
+</script>

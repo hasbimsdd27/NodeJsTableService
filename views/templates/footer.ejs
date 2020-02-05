@@ -1,0 +1,39 @@
+        </div>
+        <script src="/js/jquery-3.4.1.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                });
+                halamanUtama();
+            });
+            
+            function halamanUtama(){
+                $('#kontenHalaman').load('/main');
+            }
+            function halamanPesanan(){
+                $('#kontenHalaman').load('/pesanan');
+            }
+            function halamanDataPesanan(){
+                $('#kontenHalaman').load('/dataPesanan');
+            }
+            function halamanPembayaran(){
+                $('#kontenHalaman').load('/pembayaran');
+            }
+            function halamanTambahMenu(){
+                $('#kontenHalaman').load('/tambahMenu');
+            }
+            function halamanTambahMeja(){
+                $('#kontenHalaman').load('/tambahMeja');
+            }
+
+             
+
+
+        </script>
+    </body>
+</html>

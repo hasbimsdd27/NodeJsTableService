@@ -1,0 +1,21 @@
+<table class="table text-center">
+    <thead>
+      <tr>
+        <th scope="col">Nama</th>
+        <th scope="col">Meja</th>
+        <th scope="col">Status</th>
+        <th scope="col">Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% dataPembayaran.forEach((v)=>{%>
+      <tr>
+        <input type="hidden" readonly id="kode" value="<%= v.nomortrx%>">
+        <td><%= v.pemesan%></td>
+        <td><%= v.meja%></td>
+        <td class="badge badge-danger"><%= v.status%></td>
+        <td><button class="btn btn-success" onclick='console.log($("#kode").val())'>Bayar Pesanan</button></td>
+      </tr>
+      <%})%>
+    </tbody>
+  </table>

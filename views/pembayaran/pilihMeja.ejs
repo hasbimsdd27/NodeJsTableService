@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label for="pilihMeja">Pilih Meja</label>
+    <select class="form-control" id="pilihMeja">
+      <option value="">-Pilih Meja-</option>
+      <% dataMeja.forEach((v)=>{%>
+      <option value="<%=v.nomorTrx%>"><%= v.meja%> (<%= v.pelanggan%>)</option>
+      <%})%>
+    </select>
+  </div>

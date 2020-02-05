@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://codeshack.io/basic-login-system-nodejs-express-mysql/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<title>Basic Login System with Node.js, Express, and MySQL</title>
+<meta property="og:url" content="https://codeshack.io/basic-login-system-nodejs-express-mysql/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Basic Login System with Node.js, Express, and MySQL">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://codeshack.io/web/img/posts/basic-login-system-nodejs-express-mysql.png">
+<meta property="og:description" content="Learn how to create your own login system with Node.js, Express, and MySQL.">
+<meta property="og:site_name" content="CodeShack">
+<meta property="fb:app_id" content="2017129118606596">
+<meta name="description" content="Learn how to create your own login system with Node.js, Express, and MySQL.">
+<meta name="keywords" content="express,form,login,mysql,node.js,programming,sessions,tutorials">
+<meta name="author" content="David Adams">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Learn how to create your own login system with Node.js, Express, and MySQL.">
+<meta name="twitter:title" content="Basic Login System with Node.js, Express, and MySQL">
+<meta name="twitter:site" content="@codeshackio">
+<meta name="twitter:image" content="https://codeshack.io/web/img/posts/basic-login-system-nodejs-express-mysql.png">
+<meta name="twitter:creator" content="@codeshackio">
+<script type="text/javascript" async="" src="./Basic Login System with Node.js, Express, and MySQL_files/analytics.js.download"></script><script src="./Basic Login System with Node.js, Express, and MySQL_files/HnK7Vy0fujw41IzyAOSighqinzA.js.download"></script><script src="./Basic Login System with Node.js, Express, and MySQL_files/JtqeOD1S7cA7imscLV6UFiRpVkY.js.download"></script><link rel="icon" href="https://codeshack.io/web/img/xicon.png.pagespeed.ic.HFLS_IlMu3.webp">
+<link href="./Basic Login System with Node.js, Express, and MySQL_files/A.style.min.css,qv=4.0.9.pagespeed.cf.25BUSwNMn0.css" rel="stylesheet" type="text/css">
+<link href="./Basic Login System with Node.js, Express, and MySQL_files/css" rel="stylesheet">
+<link href="./Basic Login System with Node.js, Express, and MySQL_files/all.min.css" rel="stylesheet">
+<meta property="og:updated_time" content="2019-08-21T18:33:29+00:00">
+<meta property="article:published_time" content="2018-09-27T13:55:11+00:00">
+<meta property="article:modified_time" content="2019-08-21T18:33:29+00:00">
+<meta property="article:publisher" content="https://www.facebook.com/codeshackio/">
+<link rel="canonical" href="https://codeshack.io/basic-login-system-nodejs-express-mysql/">
+<style>.main{padding-top:10px}</style>
+<link rel="dns-prefetch" href="https://cdn.carbonads.com/"><link rel="dns-prefetch" href="https://www.googletagmanager.com/"><script data-pagespeed-no-defer="">(function(){function f(a,b,d){if(a.addEventListener)a.addEventListener(b,d,!1);else if(a.attachEvent)a.attachEvent("on"+b,d);else{var c=a["on"+b];a["on"+b]=function(){d.call(this);c&&c.call(this)}}};window.pagespeed=window.pagespeed||{};var g=window.pagespeed;function k(a){this.g=[];this.f=0;this.h=!1;this.j=a;this.i=null;this.l=0;this.b=!1;this.a=0}function l(a,b){var d=b.getAttribute("data-pagespeed-lazy-position");if(d)return parseInt(d,0);var d=b.offsetTop,c=b.offsetParent;c&&(d+=l(a,c));d=Math.max(d,0);b.setAttribute("data-pagespeed-lazy-position",d);return d}
+function m(a,b){var d,c,e;if(!a.b&&(0==b.offsetHeight||0==b.offsetWidth))return!1;a:if(b.currentStyle)c=b.currentStyle.position;else{if(document.defaultView&&document.defaultView.getComputedStyle&&(c=document.defaultView.getComputedStyle(b,null))){c=c.getPropertyValue("position");break a}c=b.style&&b.style.position?b.style.position:""}if("relative"==c)return!0;e=0;"number"==typeof window.pageYOffset?e=window.pageYOffset:document.body&&document.body.scrollTop?e=document.body.scrollTop:document.documentElement&&
+document.documentElement.scrollTop&&(e=document.documentElement.scrollTop);d=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;c=e;e+=d;var h=b.getBoundingClientRect();h?(e=h.top-d,c=h.bottom):(h=l(a,b),d=h+b.offsetHeight,e=h-e,c=d-c);return e<=a.f&&0<=c+a.f}
+k.prototype.m=function(a){p(a);var b=this;window.setTimeout(function(){var d=a.getAttribute("data-pagespeed-lazy-src");if(d)if((b.h||m(b,a))&&-1!=a.src.indexOf(b.j)){var c=a.parentNode,e=a.nextSibling;c&&c.removeChild(a);a.c&&(a.getAttribute=a.c);a.removeAttribute("onload");a.tagName&&"IMG"==a.tagName&&g.CriticalImages&&f(a,"load",function(){g.CriticalImages.checkImageForCriticality(this);b.b&&(b.a--,b.a||g.CriticalImages.checkCriticalImages())});a.removeAttribute("data-pagespeed-lazy-src");a.removeAttribute("data-pagespeed-lazy-replaced-functions");
+c&&c.insertBefore(a,e);if(c=a.getAttribute("data-pagespeed-lazy-srcset"))a.srcset=c,a.removeAttribute("data-pagespeed-lazy-srcset");a.src=d}else b.g.push(a)},0)};k.prototype.loadIfVisibleAndMaybeBeacon=k.prototype.m;k.prototype.s=function(){this.h=!0;q(this)};k.prototype.loadAllImages=k.prototype.s;function q(a){var b=a.g,d=b.length;a.g=[];for(var c=0;c<d;++c)a.m(b[c])}function t(a,b){return a.a?null!=a.a(b):null!=a.getAttribute(b)}
+k.prototype.u=function(){for(var a=document.getElementsByTagName("img"),b=0,d;d=a[b];b++)t(d,"data-pagespeed-lazy-src")&&p(d)};k.prototype.overrideAttributeFunctions=k.prototype.u;function p(a){t(a,"data-pagespeed-lazy-replaced-functions")||(a.c=a.getAttribute,a.getAttribute=function(a){"src"==a.toLowerCase()&&t(this,"data-pagespeed-lazy-src")&&(a="data-pagespeed-lazy-src");return this.c(a)},a.setAttribute("data-pagespeed-lazy-replaced-functions","1"))}
+g.o=function(a,b){function d(){if(!(c.b&&a||c.i)){var b=200;200<(new Date).getTime()-c.l&&(b=0);c.i=window.setTimeout(function(){c.l=(new Date).getTime();q(c);c.i=null},b)}}var c=new k(b);g.lazyLoadImages=c;f(window,"load",function(){c.b=!0;c.h=a;c.f=200;if(g.CriticalImages){for(var b=0,d=document.getElementsByTagName("img"),r=0,n;n=d[r];r++)-1!=n.src.indexOf(c.j)&&t(n,"data-pagespeed-lazy-src")&&b++;c.a=b;c.a||g.CriticalImages.checkCriticalImages()}q(c)});b.indexOf("data")&&((new Image).src=b);f(window,
+"scroll",d);f(window,"resize",d)};g.lazyLoadInit=g.o;})();
+
+pagespeed.lazyLoadInit(true, "/pagespeed_static/1.JiBnMqyl6S.gif");
+</script><script src="./Basic Login System with Node.js, Express, and MySQL_files/embed.js.download" data-timestamp="1580808955598"></script><script src="./Basic Login System with Node.js, Express, and MySQL_files/codesyntaxhighlight.js.download" defer="defer"></script><link rel="stylesheet" href="data:text/css;charset=utf-8;base64,Y2xvdWRmbGFyZS1hcHBbYXBwPSJjb29raWxlc3MiXSB7DQogcG9zaXRpb246IGZpeGVkOw0KIHdpZHRoOiAxMDAlOw0KIGJvdHRvbTogMDsNCiBsZWZ0OiAwOw0KIHotaW5kZXg6IDEwMDAwOw0KIGxpbmUtaGVpZ2h0OiAyNHB4Ow0KfQ0KDQpjbG91ZGZsYXJlLWFwcFthcHA9ImNvb2tpbGVzcyJdIGNvb2tpbGVzcy1kaXYgew0KICB3aWR0aDogMTAwJTsNCiAgYmFja2dyb3VuZC1jb2xvcjogIzAwMDsNCiAgY29sb3I6ICNmZmY7DQogIHBhZGRpbmc6IDEwcHg7DQogIHRleHQtYWxpZ246IGNlbnRlcjsNCiAgZGlzcGxheTogYmxvY2s7DQp9DQpjbG91ZGZsYXJlLWFwcFthcHA9ImNvb2tpbGVzcyJdIGNvb2tpbGVzcy1kaXYgLmlBY2NlcHQgew0KICBjdXJzb3I6IHBvaW50ZXI7DQogIG1hcmdpbi1sZWZ0OiAxMHB4Ow0KICBjb2xvcjogIzE1OUNEODsNCn0NCg=="><script id="_carbonads_projs" type="text/javascript" src="./Basic Login System with Node.js, Express, and MySQL_files/CE7DC2JY.json"></script><link rel="prefetch" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.15d8f2a22cfa6b9f96345c682b01a08f.css"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.0d424497492a7a96477653dedbd1462f.js"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.a0b0b564b806112a1c4571475f829256.js"><link rel="prefetch" as="script" href="https://disqus.com/next/config.js"></head>
+<body><noscript><meta HTTP-EQUIV="refresh" content="0;url='https://codeshack.io/basic-login-system-nodejs-express-mysql/?PageSpeed=noscript'" /><style><!--table,div,span,font,p{display:none} --></style><div style="display:block">Please click <a href="https://codeshack.io/basic-login-system-nodejs-express-mysql/?PageSpeed=noscript">here</a> if you are not redirected within a few seconds.</div></noscript>
+<div class="topnav">
+<div class="topnavcontent cf">
+<header class="logo">
+<a href="https://codeshack.io/"><i class="fas fa-code"></i> CodeShack</a>	</header>
+<nav>
+<label for="drop" class="toggle mbars"><i class="fas fa-bars"></i></label>
+<input type="checkbox" id="drop">
+<ul class="mhide">
+<li>
+<a href="https://codeshack.io/tutorials/">Tutorials</a>
+<div>
+<ul>
+<li><a href="https://codeshack.io/tag/html/">HTML</a></li>
+<li><a href="https://codeshack.io/tag/css/">CSS</a></li>
+<li><a href="https://codeshack.io/tag/javascript/">JavaScript</a></li>
+<li><a href="https://codeshack.io/tag/php/">PHP</a></li>
+<li><a href="https://codeshack.io/tag/python/">Python</a></li>
+<li><a href="https://codeshack.io/tag/mysql/">MySQL</a></li>
+</ul>
+</div>
+</li>
+<li>
+<a href="https://codeshack.io/examples/">Examples</a>
+<div>
+<ul>
+<li><a href="https://codeshack.io/examples/html/">HTML</a></li>
+<li><a href="https://codeshack.io/examples/css/">CSS</a></li>
+<li><a href="https://codeshack.io/examples/javascript/">JavaScript</a></li>
+</ul>
+</div>
+</li>
+<li>
+<a href="https://codeshack.io/references/">References</a>
+<div>
+<ul>
+<li><a href="https://codeshack.io/references/html/">HTML</a></li>
+</ul>
+</div>
+</li>
+<li>
+<a href="https://codeshack.io/tools/">Tools</a>
+<div style="width:250px;">
+<ul>
+<li><a href="https://codeshack.io/code-editor/">Live Code Editor</a></li>
+<li><a href="https://codeshack.io/unix-timestamp-converter/">Unix Timestamp Converter</a></li>
+<li><a href="https://codeshack.io/lorem-ipsum-generator/">Lorem Ipsum Generator</a></li>
+<li><a href="https://codeshack.io/seo-title-meta-checker/">SEO Title &amp; Meta Checker</a></li>
+<li><a href="https://codeshack.io/image-base64-converter/">Image to Base64 Converter</a></li>
+<li><a href="https://codeshack.io/what-is-my-ip/">What Is My IP</a></li>
+<li><a href="https://codeshack.io/password-generator/">Password Generator</a></li>
+<li><a href="https://codeshack.io/rgb-to-hex-converter/">RGB to HEX Converter</a></li>
+<li><a href="https://codeshack.io/hex-to-rgb-converter/">HEX to RGB Converter</a></li>
+</ul>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class="topcontent3 m100"></div>
+<div class="example-header">
+<div class="m100">
+<a href="https://codeshack.io/tag/html/">HTML</a>
+<a href="https://codeshack.io/tag/css/">CSS</a>
+<a href="https://codeshack.io/tag/javascript/">JavaScript</a>
+<a href="https://codeshack.io/tag/jquery/">jQuery</a>
+<a href="https://codeshack.io/tag/php/">PHP</a>
+<a href="https://codeshack.io/tag/python/">Python</a>
+<a href="https://codeshack.io/tag/mysql/">MySQL</a>
+</div>
+</div>
+<div class="main cf">
+<main class="content m100">
+<!--
+<div class="dhide" style="padding:0 0 10px 0;">
+    <ins class="adsbygoogle dhide"
+         style="display:block"
+         data-ad-client="ca-pub-5334209985480891"
+         data-ad-slot="6690634619"
+         data-ad-format="rectangle"
+         data-full-width-responsive="true"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+-->
+<div class="post mrm mpad">
+<article>
+<header>
+<h1>Basic Login System with Node.js, Express, and MySQL</h1>
+<p>
+Updated on <b><time datetime="2019-08-21T18:33:29+00:00">August 21, 2019</time></b> by <a href="https://codeshack.io/author/david-adams/">David Adams</a>
+</p>
+</header>
+<div class="cf">
+<script data-pagespeed-no-defer="">(function(){for(var g="function"==typeof Object.defineProperties?Object.defineProperty:function(b,c,a){if(a.get||a.set)throw new TypeError("ES3 does not support getters and setters.");b!=Array.prototype&&b!=Object.prototype&&(b[c]=a.value)},h="undefined"!=typeof window&&window===this?this:"undefined"!=typeof global&&null!=global?global:this,k=["String","prototype","repeat"],l=0;l<k.length-1;l++){var m=k[l];m in h||(h[m]={});h=h[m]}var n=k[k.length-1],p=h[n],q=p?p:function(b){var c;if(null==this)throw new TypeError("The 'this' value for String.prototype.repeat must not be null or undefined");c=this+"";if(0>b||1342177279<b)throw new RangeError("Invalid count value");b|=0;for(var a="";b;)if(b&1&&(a+=c),b>>>=1)c+=c;return a};q!=p&&null!=q&&g(h,n,{configurable:!0,writable:!0,value:q});var t=this;function u(b,c){var a=b.split("."),d=t;a[0]in d||!d.execScript||d.execScript("var "+a[0]);for(var e;a.length&&(e=a.shift());)a.length||void 0===c?d[e]?d=d[e]:d=d[e]={}:d[e]=c};function v(b){var c=b.length;if(0<c){for(var a=Array(c),d=0;d<c;d++)a[d]=b[d];return a}return[]};function w(b){var c=window;if(c.addEventListener)c.addEventListener("load",b,!1);else if(c.attachEvent)c.attachEvent("onload",b);else{var a=c.onload;c.onload=function(){b.call(this);a&&a.call(this)}}};var x;function y(b,c,a,d,e){this.h=b;this.j=c;this.l=a;this.f=e;this.g={height:window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight,width:window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth};this.i=d;this.b={};this.a=[];this.c={}}function z(b,c){var a,d,e=c.getAttribute("data-pagespeed-url-hash");if(a=e&&!(e in b.c))if(0>=c.offsetWidth&&0>=c.offsetHeight)a=!1;else{d=c.getBoundingClientRect();var f=document.body;a=d.top+("pageYOffset"in window?window.pageYOffset:(document.documentElement||f.parentNode||f).scrollTop);d=d.left+("pageXOffset"in window?window.pageXOffset:(document.documentElement||f.parentNode||f).scrollLeft);f=a.toString()+","+d;b.b.hasOwnProperty(f)?a=!1:(b.b[f]=!0,a=a<=b.g.height&&d<=b.g.width)}a&&(b.a.push(e),b.c[e]=!0)}y.prototype.checkImageForCriticality=function(b){b.getBoundingClientRect&&z(this,b)};u("pagespeed.CriticalImages.checkImageForCriticality",function(b){x.checkImageForCriticality(b)});u("pagespeed.CriticalImages.checkCriticalImages",function(){A(x)});function A(b){b.b={};for(var c=["IMG","INPUT"],a=[],d=0;d<c.length;++d)a=a.concat(v(document.getElementsByTagName(c[d])));if(a.length&&a[0].getBoundingClientRect){for(d=0;c=a[d];++d)z(b,c);a="oh="+b.l;b.f&&(a+="&n="+b.f);if(c=!!b.a.length)for(a+="&ci="+encodeURIComponent(b.a[0]),d=1;d<b.a.length;++d){var e=","+encodeURIComponent(b.a[d]);131072>=a.length+e.length&&(a+=e)}b.i&&(e="&rd="+encodeURIComponent(JSON.stringify(B())),131072>=a.length+e.length&&(a+=e),c=!0);C=a;if(c){d=b.h;b=b.j;var f;if(window.XMLHttpRequest)f=new XMLHttpRequest;else if(window.ActiveXObject)try{f=new ActiveXObject("Msxml2.XMLHTTP")}catch(r){try{f=new ActiveXObject("Microsoft.XMLHTTP")}catch(D){}}f&&(f.open("POST",d+(-1==d.indexOf("?")?"?":"&")+"url="+encodeURIComponent(b)),f.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),f.send(a))}}}function B(){var b={},c;c=document.getElementsByTagName("IMG");if(!c.length)return{};var a=c[0];if(!("naturalWidth"in a&&"naturalHeight"in a))return{};for(var d=0;a=c[d];++d){var e=a.getAttribute("data-pagespeed-url-hash");e&&(!(e in b)&&0<a.width&&0<a.height&&0<a.naturalWidth&&0<a.naturalHeight||e in b&&a.width>=b[e].o&&a.height>=b[e].m)&&(b[e]={rw:a.width,rh:a.height,ow:a.naturalWidth,oh:a.naturalHeight})}return b}var C="";u("pagespeed.CriticalImages.getBeaconData",function(){return C});u("pagespeed.CriticalImages.Run",function(b,c,a,d,e,f){var r=new y(b,c,a,e,f);x=r;d&&w(function(){window.setTimeout(function(){A(r)},0)})});})();pagespeed.CriticalImages.Run('/ngx_pagespeed_beacon','https://codeshack.io/basic-login-system-nodejs-express-mysql/','cCL59kwtir',false,false,'FQYum6cx-qs');</script><img class="featuredimage" src="./Basic Login System with Node.js, Express, and MySQL_files/xbasic-login-system-nodejs-express-mysql.png.pagespeed.ic.J793Z7kXqj.webp" width="770" height="400" alt="Basic Login System with Node.js, Express, and MySQL" data-pagespeed-url-hash="3600306759" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+<div class="content m100 mpadtb"><p>For this tutorial we'll be doing something a little different, instead of developing applications with PHP we'll be creating a login system with Node.js, Express, and MySQL.</p>
+<p>Subscribers have been asking for a Node.js tutorial, so I thought hey why not create a login system similar to that of the <a href="https://codeshack.io/secure-login-system-php-mysql/" target="_blank" class="l1">PHP login system tutorial</a> I published a few months back, so here it is.</p>
+<p>The <a href="https://codeshack.io/basic-login-system-nodejs-express-mysql/#packages" class="l1">Basic and Advanced packages</a> include additional features and a download link to the source code, you can view screenshots below.</p>
+<div class="image-slide" style="width:95%;">
+<div class="image-slide-images">
+<div data-description="Tutorial - Login Form">
+<img width="750" height="585" alt="Node.js Login Form" data-pagespeed-url-hash="1307432233" src="./Basic Login System with Node.js, Express, and MySQL_files/xnodejs-login-form.png.pagespeed.ic.lMRh6xOpfi.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+</div>
+<div data-description="Advanced Package - Login Form">
+<img width="750" height="585" alt="Advanced Node.js Login Form" data-pagespeed-url-hash="1522128262" src="./Basic Login System with Node.js, Express, and MySQL_files/xadvanced-login-form.png.pagespeed.ic.uQZGP0DoeO.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+</div>
+<div data-description="Advanced Package - Registration Form">
+<img width="750" height="585" alt="Advanced Node.js Registration Form" data-pagespeed-url-hash="3815024288" src="./Basic Login System with Node.js, Express, and MySQL_files/xadvanced-registration-form.png.pagespeed.ic.pV_54elf7f.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+</div>
+<div data-description="Advanced Package - Home Page for Logged-In Users">
+<img width="750" height="585" alt="Advanced Node.js Login Home" data-pagespeed-url-hash="4116577541" src="./Basic Login System with Node.js, Express, and MySQL_files/xadvanced-home.png.pagespeed.ic._nMkaFbaGz.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+</div>
+<div data-description="Advanced Package - Profile Page for Logged-In Users">
+<img width="750" height="585" alt="Advanced Node.js Login Profile" data-pagespeed-url-hash="3707054401" src="./Basic Login System with Node.js, Express, and MySQL_files/xadvanced-profile.png.pagespeed.ic.Fg-OIxFB-Z.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+</div>
+<div data-description="Advanced Package - Edit Profile Page for Logged-In Users">
+<img width="750" height="585" alt="Advanced Node.js Login Edit Profile" data-pagespeed-url-hash="198910068" src="./Basic Login System with Node.js, Express, and MySQL_files/xadvanced-edit-profile.png.pagespeed.ic.xgH3JuPGtl.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+</div>
+</div>
+<a href="https://codeshack.io/basic-login-system-nodejs-express-mysql/#" class="image-slide-left"><i class="fas fa-chevron-left"></i></a>
+<a href="https://codeshack.io/basic-login-system-nodejs-express-mysql/#" class="image-slide-right"><i class="fas fa-chevron-right"></i></a>
+</div>
+<h2>What you will learn in this Tutorial</h2>
+<ol>
+<li style="line-height:30px;">Establishing a connection to a MySQL database and selecting rows using MySQL queries.</li>
+<li style="line-height:30px;">Creating GET and POST requests with Node.js and Express.</li>
+<li style="line-height:30px;">Sending and receiving data from the client using Node and Express.</li>
+<li style="line-height:30px;">Creating session variables for clients, this will determine if a user is logged in or not.</li>
+</ol>
+<h2>Why create a login system with Node.js over something like PHP?</h2>
+<p>Node.js is a powerful open-source server environment using JavaScript as its core scripting language, Node.js is still fairly new to the web, web developers around the world are using it more and more each year, some say Node.js is the future for websites and applications.</p>
+<p>Node.js's package manager already has over 450,000 packages available for you to download, those numbers alone prove how fast it's growing.</p>
+<p>If you are familiar with JavaScript, you will enjoy developing applications with Node.js.</p>
+<p>Unlike PHP, Node.js does not require Apache or Nginx, Node.js is its own environment.</p>
+<h2>Requirements</h2>
+<ul>
+<li style="line-height:30px;"><a href="https://www.mysql.com/" target="_blank" class="l1">MySQL Server</a></li>
+<li style="line-height:30px;"><a href="https://nodejs.org/" target="_blank" class="l1">Node.js</a></li>
+<li style="line-height:30px;"><a href="https://expressjs.com/" target="_blank" class="l1">Express</a> - Install with command: <i class="hl">npm install express</i>.</li>
+<li style="line-height:30px;"><a href="https://www.npmjs.com/package/express-session" target="_blank" class="l1">Express Sessions</a> - Install with command: <i class="hl">npm install express-session</i>.</li>
+<li style="line-height:30px;"><a href="https://www.npmjs.com/package/mysql" target="_blank" class="l1">MySQL for Node.js</a> - Install with command: <i class="hl">npm install mysql</i>.</li>
+</ul>
+<div class="contents">
+<h2>File Structure</h2>
+<p style="font-family: Consolas,monaco,monospace;margin:0;padding:30px;">
+\-- nodelogin<br>
+&nbsp;&nbsp;|-- login.html<br>
+&nbsp;&nbsp;|-- login.js
+</p>
+</div>
+<h2>Getting Started</h2>
+<p>Create a new directory called <i class="hl">nodelogin</i>, you can create this anywhere on your computer.</p>
+<p>Run the command: <i class="hl">npm init</i> from inside the directory, it will prompt us to enter a package name, enter: <i class="hl">login</i>.</p>
+<p>
+</p><p>When it prompts to enter the entry point enter <i class="hl">login.js</i>.</p>
+<p>Now we need to install the packages listed in the requirements, while still in the command line run the commands listed in the requirements above.</p>
+<p>We should now have a new directory called: <i class="hl">node_modules</i> with all the modules installed.</p>
+<h2>Creating the Login System</h2>
+<p>Create a new file called: <i class="hl">login.html</i>.</p>
+<h3>login.html</h3>
+<pre class=" language-html"><code class=" language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Login Form Tutorial<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">&gt;</span></span><span class="token style language-css">
+		<span class="token selector"><span class="token class">.login-form</span> </span><span class="token punctuation">{</span>
+			<span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">300</span>px<span class="token punctuation">;</span>
+			<span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">0</span> auto<span class="token punctuation">;</span>
+			<span class="token property">font-family</span><span class="token punctuation">:</span> Tahoma, Geneva, sans-serif<span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		<span class="token selector"><span class="token class">.login-form</span> h1 </span><span class="token punctuation">{</span>
+			<span class="token property">text-align</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+			<span class="token property">color</span><span class="token punctuation">:</span> <span class="token hexcode">#4d4d4d</span><span class="token punctuation">;</span>
+			<span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token number">24</span>px<span class="token punctuation">;</span>
+			<span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">20</span>px <span class="token number">0</span> <span class="token number">20</span>px <span class="token number">0</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		<span class="token selector"><span class="token class">.login-form</span> input<span class="token attribute">[type="password"]</span>,
+		<span class="token class">.login-form</span> input<span class="token attribute">[type="text"]</span> </span><span class="token punctuation">{</span>
+			<span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+			<span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">15</span>px<span class="token punctuation">;</span>
+			<span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">1</span>px solid <span class="token hexcode">#dddddd</span><span class="token punctuation">;</span>
+			<span class="token property">margin-bottom</span><span class="token punctuation">:</span> <span class="token number">15</span>px<span class="token punctuation">;</span>
+			<span class="token property">box-sizing</span><span class="token punctuation">:</span>border-box<span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		<span class="token selector"><span class="token class">.login-form</span> input<span class="token attribute">[type="submit"]</span> </span><span class="token punctuation">{</span>
+			<span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+			<span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">15</span>px<span class="token punctuation">;</span>
+			<span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token hexcode">#535b63</span><span class="token punctuation">;</span>
+			<span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+			<span class="token property">box-sizing</span><span class="token punctuation">:</span> border-box<span class="token punctuation">;</span>
+			<span class="token property">cursor</span><span class="token punctuation">:</span> pointer<span class="token punctuation">;</span>
+			<span class="token property">font-weight</span><span class="token punctuation">:</span> bold<span class="token punctuation">;</span>
+			<span class="token property">color</span><span class="token punctuation">:</span> <span class="token hexcode">#ffffff</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>login-form<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+			<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Login Form<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+			<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>auth<span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>POST<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+				<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Username<span class="token punctuation">"</span></span> <span class="token attr-name">required</span><span class="token punctuation">&gt;</span></span>
+				<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Password<span class="token punctuation">"</span></span> <span class="token attr-name">required</span><span class="token punctuation">&gt;</span></span>
+				<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+			<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+		<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>The login form will look like this:</p>
+<div class="browser">
+<div>
+<span class="btn red"></span>
+<span class="btn orange"></span>
+<span class="btn green"></span>
+<span class="url">http://localhost:3000/</span>
+</div>
+<img width="511" height="363" alt="Login Form Node.js" data-pagespeed-url-hash="2705849227" src="./Basic Login System with Node.js, Express, and MySQL_files/xlogin-form-design.png.pagespeed.ic.ERkxETUXRQ.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+</div>
+<p>This is just a basic login form design we'll use for our login system, the method for the form is set to <i class="hl">POST</i> and the action is set to <i class="hl">auth</i>, the form data will be sent to our node server using this method.</p>
+<p>Now we can go ahead and create our Node.js application, create a new file called: <i class="hl">login.js</i>, open the file with your favorite code editor.</p>
+<p>We need to include the packages in our Node.js application, create the following variables and require the modules:</p>
+<pre class=" language-javascript"><code class=" language-javascript"><span class="token keyword">var</span> mysql <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'mysql'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> session <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express-session'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> bodyParser <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'body-parser'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>We now need a database to connect to, run the below SQL statement either with command prompt/console or your preferred <a href="https://www.mysql.com/products/workbench/" target="_blank" class="l1">MySQL Editor</a>.</p>
+<pre class=" language-sql"><code class=" language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token punctuation">`</span>nodelogin<span class="token punctuation">`</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARACTER SET</span> utf8 <span class="token keyword">COLLATE</span> utf8_general_ci<span class="token punctuation">;</span>
+<span class="token keyword">USE</span> <span class="token punctuation">`</span>nodelogin<span class="token punctuation">`</span><span class="token punctuation">;</span>
+
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token punctuation">`</span>accounts<span class="token punctuation">`</span> <span class="token punctuation">(</span>
+  <span class="token punctuation">`</span>id<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>username<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>password<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>email<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token operator">=</span><span class="token number">2</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8<span class="token punctuation">;</span>
+
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> <span class="token punctuation">`</span>accounts<span class="token punctuation">`</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>id<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>username<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>password<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>email<span class="token punctuation">`</span><span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'test'</span><span class="token punctuation">,</span> <span class="token string">'test'</span><span class="token punctuation">,</span> <span class="token string">'test@test.com'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>accounts<span class="token punctuation">`</span> <span class="token keyword">ADD</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>id<span class="token punctuation">`</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>accounts<span class="token punctuation">`</span> <span class="token keyword">MODIFY</span> <span class="token punctuation">`</span>id<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token punctuation">,</span><span class="token keyword">AUTO_INCREMENT</span><span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span></code></pre>
+<p>This will create a database with the name: <i class="hl">nodelogin</i> and with the table: <i class="hl">accounts</i>, it will also insert a test account with both the username and password being: <i class="hl">test</i>.</p>
+<p>We can now connect to our database with the following code:</p>
+<pre class=" language-js"><code class=" language-js"><span class="token keyword">var</span> connection <span class="token operator">=</span> mysql<span class="token punctuation">.</span><span class="token function">createConnection</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+	host     <span class="token punctuation">:</span> <span class="token string">'localhost'</span><span class="token punctuation">,</span>
+	user     <span class="token punctuation">:</span> <span class="token string">'root'</span><span class="token punctuation">,</span>
+	password <span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+	database <span class="token punctuation">:</span> <span class="token string">'nodelogin'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Remember to change the connection details to your own.</p>
+<p>Express is what we'll use for our web applications, this includes packages useful in web development, such as sessions and handling HTTP requests, to initialize it we can do:</p>
+<pre class=" language-js"><code class=" language-js"><span class="token keyword">var</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>We now need to let Express know we'll be using some of its packages:</p>
+<pre class=" language-js"><code class=" language-js">app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">session</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+	secret<span class="token punctuation">:</span> <span class="token string">'secret'</span><span class="token punctuation">,</span>
+	resave<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+	saveUninitialized<span class="token punctuation">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>bodyParser<span class="token punctuation">.</span><span class="token function">urlencoded</span><span class="token punctuation">(</span><span class="token punctuation">{</span>extended <span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>bodyParser<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Make sure to change the secret code for the sessions, the sessions package is what we'll use to determine if the user is logged-in, the <i class="hl">bodyParser</i> package will extract the form data from our <i class="hl">login.html</i> file.</p>
+<p>We now need to display our <i class="hl">login.html</i> file to the client:</p>
+<pre class=" language-js"><code class=" language-js">app<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	response<span class="token punctuation">.</span><span class="token function">sendFile</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname <span class="token operator">+</span> <span class="token string">'/login.html'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>When the client connects to the server the login page will be displayed, the server will send the <i class="hl">login.html</i> file.</p>
+<p>We need to now handle the POST request, basically what happens here is when the client enters their details in the login form and clicks the submit button, the form data will be sent to the server, and with that data our login script will check in our MySQL accounts table to see if the details are correct.</p>
+<pre class=" language-js"><code class=" language-js">app<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/auth'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> username <span class="token operator">=</span> request<span class="token punctuation">.</span>body<span class="token punctuation">.</span>username<span class="token punctuation">;</span>
+	<span class="token keyword">var</span> password <span class="token operator">=</span> request<span class="token punctuation">.</span>body<span class="token punctuation">.</span>password<span class="token punctuation">;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>username <span class="token operator">&amp;&amp;</span> password<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		connection<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">'SELECT * FROM accounts WHERE username = ? AND password = ?'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>username<span class="token punctuation">,</span> password<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> results<span class="token punctuation">,</span> fields<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>results<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				request<span class="token punctuation">.</span>session<span class="token punctuation">.</span>loggedin <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+				request<span class="token punctuation">.</span>session<span class="token punctuation">.</span>username <span class="token operator">=</span> username<span class="token punctuation">;</span>
+				response<span class="token punctuation">.</span><span class="token function">redirect</span><span class="token punctuation">(</span><span class="token string">'/home'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+				response<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'Incorrect Username and/or Password!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>			
+			response<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		response<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'Please enter Username and Password!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		response<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>What happens here is we first create the POST request in our script, our login form action is to: <i class="hl">auth</i> so we need to use that here, after, we create two variables, one for the username and one for the password, we then check to see if the username and password exist, if they are we query our MySQL table: <i class="hl">accounts</i> and check to see if the details exist in the table.</p>
+<p>If the result returned from the table exists we create two session variables, one to determine if the client is logged in and the other will be their username.</p>
+<p>If no results are returned we send to the client an error message, this message will let the client know they've entered the wrong details.</p>
+<p>If everything went as expected and the client logs in they will be redirected to the home page.</p>
+<p>The home page we can handle with another GET request:</p>
+<pre class=" language-js"><code class=" language-js">app<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'/home'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>request<span class="token punctuation">.</span>session<span class="token punctuation">.</span>loggedin<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		response<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'Welcome back, '</span> <span class="token operator">+</span> request<span class="token punctuation">.</span>session<span class="token punctuation">.</span>username <span class="token operator">+</span> <span class="token string">'!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		response<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'Please login to view this page!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	response<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Our web application needs to listen on a port, for testing purposes we'll use port 3000:</p>
+<pre class=" language-js"><code class=" language-js">app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>And to run our new web application we can run the following command: <i class="hl">node login.js</i> in command prompt/console, this will start the server, if we enter the address: <i class="hl">http://localhost:3000/</i> it should display our login form.</p>
+<h2>Full login.js Source</h2><br>
+<pre class=" language-js"><code class=" language-js"><span class="token keyword">var</span> mysql <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'mysql'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> session <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express-session'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> bodyParser <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'body-parser'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> connection <span class="token operator">=</span> mysql<span class="token punctuation">.</span><span class="token function">createConnection</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+	host     <span class="token punctuation">:</span> <span class="token string">'localhost'</span><span class="token punctuation">,</span>
+	user     <span class="token punctuation">:</span> <span class="token string">'root'</span><span class="token punctuation">,</span>
+	password <span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+	database <span class="token punctuation">:</span> <span class="token string">'nodelogin'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">session</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+	secret<span class="token punctuation">:</span> <span class="token string">'secret'</span><span class="token punctuation">,</span>
+	resave<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+	saveUninitialized<span class="token punctuation">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>bodyParser<span class="token punctuation">.</span><span class="token function">urlencoded</span><span class="token punctuation">(</span><span class="token punctuation">{</span>extended <span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>bodyParser<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	response<span class="token punctuation">.</span><span class="token function">sendFile</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname <span class="token operator">+</span> <span class="token string">'/login.html'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'/auth'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> username <span class="token operator">=</span> request<span class="token punctuation">.</span>body<span class="token punctuation">.</span>username<span class="token punctuation">;</span>
+	<span class="token keyword">var</span> password <span class="token operator">=</span> request<span class="token punctuation">.</span>body<span class="token punctuation">.</span>password<span class="token punctuation">;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>username <span class="token operator">&amp;&amp;</span> password<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		connection<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">'SELECT * FROM accounts WHERE username = ? AND password = ?'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>username<span class="token punctuation">,</span> password<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> results<span class="token punctuation">,</span> fields<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>results<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				request<span class="token punctuation">.</span>session<span class="token punctuation">.</span>loggedin <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+				request<span class="token punctuation">.</span>session<span class="token punctuation">.</span>username <span class="token operator">=</span> username<span class="token punctuation">;</span>
+				response<span class="token punctuation">.</span><span class="token function">redirect</span><span class="token punctuation">(</span><span class="token string">'/home'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+				response<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'Incorrect Username and/or Password!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>			
+			response<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		response<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'Please enter Username and Password!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		response<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'/home'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>request<span class="token punctuation">.</span>session<span class="token punctuation">.</span>loggedin<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		response<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'Welcome back, '</span> <span class="token operator">+</span> request<span class="token punctuation">.</span>session<span class="token punctuation">.</span>username <span class="token operator">+</span> <span class="token string">'!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		response<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'Please login to view this page!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	response<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2>Conclusion</h2>
+<p>That's about all we need to do for a basic login system, remember this is only a basic solution, I wouldn't recommend using it for production purposes, I recommend you look into more Node.js modules, for example, the password field in this tutorial are not hashed, it requires a separate package.</p>
+<p>I hope you've enjoyed this tutorial, don't forget to like, follow, and share this article.</p>
+<p>Enjoy coding!</p>
+<p style="font-style:italic;padding-top:15px;" id="packages">If you would like to support us consider purchasing a package below, this will greatly help us create more tutorials and keep our server up and running.</p>
+<div class="price-table">
+<div class="mhide"></div>
+<div><h3>Basic</h3></div>
+<div><h3>Advanced</h3></div>
+<div>Source code</div>
+<div><i class="fas fa-check"></i></div>
+<div><i class="fas fa-check"></i></div>
+<div>Database SQL file</div>
+<div><i class="fas fa-check"></i></div>
+<div><i class="fas fa-check"></i></div>
+<div>Login &amp; Registration system</div>
+<div><i class="fas fa-check"></i></div>
+<div><i class="fas fa-check"></i></div>
+<div>Home page</div>
+<div><i class="fas fa-check"></i></div>
+<div><i class="fas fa-check"></i></div>
+<div>Profile page</div>
+<div><i class="fas fa-check"></i></div>
+<div><i class="fas fa-check"></i></div>
+<div>Activate account feature</div>
+<div><i class="fas fa-check"></i></div>
+<div><i class="fas fa-check"></i></div>
+<div>Edit profile page</div>
+<div></div>
+<div><i class="fas fa-check"></i></div>
+<div>Remember me feature</div>
+<div></div>
+<div><i class="fas fa-check"></i></div>
+<div>AJAX integration</div>
+<div></div>
+<div><i class="fas fa-check"></i></div>
+<div>Password encryption</div>
+<div></div>
+<div><i class="fas fa-check"></i></div>
+<div>SCSS file</div>
+<div><i class="fas fa-check"></i></div>
+<div><i class="fas fa-check"></i></div>
+<div>Commented code</div>
+<div><i class="fas fa-check"></i></div>
+<div><i class="fas fa-check"></i></div>
+<div>Free updates</div>
+<div><i class="fas fa-check"></i></div>
+<div><i class="fas fa-check"></i></div>
+<div>Free support (bugs and minor issues)</div>
+<div><i class="fas fa-check"></i></div>
+<div><i class="fas fa-check"></i></div>
+<div style="font-size:14px;line-height:24px;">
+* Payments are processed with PayPal.<br>
+* Both packages include the tutorial source code.<br>
+* Advanced package also includes the basic package.
+</div>
+<div>
+<h3>$5.00</h3>
+<a href="https://codeshack.io/index.php?page=blog&amp;action=payment&amp;pid=68&amp;type=basic" class="grey" rel="nofollow"><i class="fab fa-paypal"></i>Download</a>
+</div>
+<div>
+<h3>$15.00</h3>
+<a href="https://codeshack.io/index.php?page=blog&amp;action=payment&amp;pid=68&amp;type=advanced" class="blue" rel="nofollow"><i class="fab fa-paypal"></i>Download</a>
+</div>
+</div>
+</div>
+</div>
+<div class="share">
+<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://codeshack.io/basic-login-system-nodejs-express-mysql/" class="fb"><i class="fab fa-facebook-f"></i></a>
+<a target="_blank" href="https://twitter.com/share?text=Basic%20Login%20System%20with%20Node.js%2C%20Express%2C%20and%20MySQL&amp;url=https://codeshack.io/basic-login-system-nodejs-express-mysql/" class="tw"><i class="fab fa-twitter"></i></a>
+<a target="_blank" href="https://www.linkedin.com/cws/share?url=https://codeshack.io/basic-login-system-nodejs-express-mysql/" class="in"><i class="fab fa-linkedin-in"></i></a>
+<a target="_blank" href="https://pinterest.com/pin/create/button/?url=https://codeshack.io/basic-login-system-nodejs-express-mysql/&amp;media=https://codeshack.io/web/img/posts/basic-login-system-nodejs-express-mysql.png" class="p"><i class="fab fa-pinterest-p"></i></a>
+<br><br>
+</div>
+<footer class="cf">
+<div class="aboutauthor cf mcenter">
+<h3>About Author</h3>
+<img class="mnofloat" width="150" height="150" alt="David Adams" data-pagespeed-url-hash="463862299" src="./Basic Login System with Node.js, Express, and MySQL_files/150x150xavatar-200.png.pagespeed.ic.lxTftl4bl5.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+<div class="m100">
+<h4>David Adams</h4>
+<p>Enthusiastic website developer, I've been designing and developing web applications for over 10 years, I enjoy the creativity I put into my projects and enjoy what others bring to the awesome web. My goal is to help newcomers learn the ways of the web.</p>
+</div>
+</div>
+<div style="padding-top:10px;"></div>
+<a class="tag" href="https://codeshack.io/tag/express/">express</a>
+<a class="tag" href="https://codeshack.io/tag/form/">form</a>
+<a class="tag" href="https://codeshack.io/tag/login/">login</a>
+<a class="tag" href="https://codeshack.io/tag/mysql/">mysql</a>
+<a class="tag" href="https://codeshack.io/tag/node.js/">node.js</a>
+<a class="tag" href="https://codeshack.io/tag/programming/">programming</a>
+<a class="tag" href="https://codeshack.io/tag/sessions/">sessions</a>
+<a class="tag" href="https://codeshack.io/tag/tutorials/">tutorials</a>
+<div class="prevnext cf">
+<a class="otherposts left" href="https://codeshack.io/21-useful-php-snippets/">← 21 Useful PHP Snippets</a>
+<a class="otherposts right" href="https://codeshack.io/how-to-create-contact-page-php/">How to Create a Contact Page with PHP →</a>
+</div>
+<div class="relatedposts cf">
+<h3>Related Posts</h3>
+<a href="https://codeshack.io/login-system-python-flask-mysql/" class="m100">
+<img width="245" height="120" alt="Login System with Python Flask and MySQL" data-pagespeed-url-hash="3022750842" src="./Basic Login System with Node.js, Express, and MySQL_files/245x120xlogin-system-python-flask-mysql.png.pagespeed.ic.CAYXDBT6bW.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+<span>Login System with Python Flask and MySQL</span>
+</a>
+<a href="https://codeshack.io/shopping-cart-system-php-mysql/" class="m100">
+<img width="245" height="120" alt="Shopping Cart System with PHP and MySQL" data-pagespeed-url-hash="3900336972" src="./Basic Login System with Node.js, Express, and MySQL_files/245x120xshopping-cart-system-php-mysql.png.pagespeed.ic.L1nDdCehBl.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+<span>Shopping Cart System with PHP and MySQL</span>
+</a>
+<a href="https://codeshack.io/poll-voting-system-php-mysql/" class="m100">
+<img width="245" height="120" alt="Poll and Voting System with PHP and MySQL" data-pagespeed-url-hash="1139064404" src="./Basic Login System with Node.js, Express, and MySQL_files/245x120xpoll-voting-system-php-mysql.png.pagespeed.ic.rIU_zz63ka.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);">
+<span>Poll and Voting System with PHP and MySQL</span>
+</a>
+</div>
+<div id="comments">
+<div id="disqus_thread"><iframe id="dsq-app9014" name="dsq-app9014" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Basic Login System with Node.js, Express, and MySQL_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 8674px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+</div>
+</footer>
+</article>
+</div>
+</main>
+<aside class="m100 mpad">
+<div style="text-align:center;padding-bottom:20px;">
+<script type="text/javascript" data-pagespeed-no-defer="">pagespeed.lazyLoadImages.overrideAttributeFunctions();</script><script async="" type="text/javascript" src="./Basic Login System with Node.js, Express, and MySQL_files/carbon.js.download" id="_carbonads_js"></script>
+</div>
+<div class="search" style="margin-bottom:20px;">
+<input id="search-txt" type="text" placeholder="Search blog ...">
+<a id="search-btn" href="https://codeshack.io/basic-login-system-nodejs-express-mysql/#"><i class="fas fa-search"></i></a>
+</div>
+<div class="sideblock cf subwidget">
+<div class="txt1">Informative posts straight to your inbox</div>
+<div class="txt2">Join our large group of subscribers</div>
+<input type="email" placeholder="Your email" id="subemail">
+<a href="https://codeshack.io/basic-login-system-nodejs-express-mysql/#" id="subbtn">Subscribe</a>
+</div>
+<div class="sideblock cf">
+<h3>Follow Us</h3>
+<div>
+<div class="share">
+<a href="https://www.facebook.com/codeshackio/" class="fb" target="_blank"><i class="fab fa-facebook-f"></i></a>
+<a href="https://twitter.com/codeshackio" class="tw" target="_blank"><i class="fab fa-twitter"></i></a>
+<a href="https://www.youtube.com/channel/UCm3QfVIxL-079Uj31Bk1nMg/" class="yt" target="_blank"><i class="fab fa-youtube"></i></a>
+</div>
+</div>
+</div>
+<div class="sideblock cf">
+<h3>Recent Posts</h3>
+<div>
+<table>
+<tbody><tr>
+<td class="sidepostimg">
+<a href="https://codeshack.io/how-to-integrate-paypal-php-mysql/" class="postimage"><img width="80" height="55" alt="How to Integrate PayPal with PHP and MySQL" data-pagespeed-url-hash="3650878981" src="./Basic Login System with Node.js, Express, and MySQL_files/80x55xhow-to-integrate-paypal-php-mysql.png.pagespeed.ic.8uYbFHG304.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"></a>
+</td>
+<td class="sideposttitle"><a href="https://codeshack.io/how-to-integrate-paypal-php-mysql/">How to Integrate PayPal with PHP and MySQL</a></td>
+</tr>
+<tr>
+<td class="sidepostimg">
+<a href="https://codeshack.io/gallery-system-php-mysql-js/" class="postimage"><img width="80" height="55" alt="Gallery System with PHP, MySQL and JS" data-pagespeed-url-hash="3974851265" src="./Basic Login System with Node.js, Express, and MySQL_files/80x55xgallery-system-php-mysql-js.png.pagespeed.ic.__sWMgULOG.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"></a>
+</td>
+<td class="sideposttitle"><a href="https://codeshack.io/gallery-system-php-mysql-js/">Gallery System with PHP, MySQL and JS</a></td>
+</tr>
+<tr>
+<td class="sidepostimg">
+<a href="https://codeshack.io/adblocker-detector-popup-javascript-css3/" class="postimage"><img width="80" height="55" alt="Adblocker Detector Popup with JavaScript and CSS3" data-pagespeed-url-hash="1673997083" src="./Basic Login System with Node.js, Express, and MySQL_files/80x55xadblocker-detector-popup-javascript-css3.png.pagespeed.ic.BJq7JhKafi.webp" onerror="this.onerror=null;pagespeed.lazyLoadImages.loadIfVisibleAndMaybeBeacon(this);"></a>
+</td>
+<td class="sideposttitle"><a href="https://codeshack.io/adblocker-detector-popup-javascript-css3/">Adblocker Detector Popup with JavaScript and CSS3</a></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="sideblock cf">
+<h3>Tags</h3>
+<div>
+<a class="tag" href="https://codeshack.io/tag/tutorials/">tutorials</a>
+<a class="tag" href="https://codeshack.io/tag/mysql/">mysql</a>
+<a class="tag" href="https://codeshack.io/tag/php/">php</a>
+<a class="tag" href="https://codeshack.io/tag/programming/">programming</a>
+<a class="tag" href="https://codeshack.io/tag/javascript/">javascript</a>
+<a class="tag" href="https://codeshack.io/tag/css/">css</a>
+<a class="tag" href="https://codeshack.io/tag/html/">html</a>
+<a class="tag" href="https://codeshack.io/tag/login/">login</a>
+<a class="tag" href="https://codeshack.io/tag/snippets/">snippets</a>
+<a class="tag" href="https://codeshack.io/tag/form/">form</a>
+<a class="tag" href="https://codeshack.io/tag/mysqli/">mysqli</a>
+<a class="tag" href="https://codeshack.io/tag/registration/">registration</a>
+<a class="tag" href="https://codeshack.io/tag/shopping-cart/">shopping cart</a>
+<a class="tag" href="https://codeshack.io/tag/pdo/">pdo</a>
+<a class="tag" href="https://codeshack.io/tag/scripting/">scripting</a>
+<a class="tag" href="https://codeshack.io/tag/sort/">sort</a>
+<a class="tag" href="https://codeshack.io/tag/columns/">columns</a>
+<a class="tag" href="https://codeshack.io/tag/jquery/">jquery</a>
+<a class="tag" href="https://codeshack.io/tag/php-class/">php class</a>
+<a class="tag" href="https://codeshack.io/tag/progamming/">progamming</a>
+<a class="tag" href="https://codeshack.io/tag/flask/">flask</a>
+<a class="tag" href="https://codeshack.io/tag/node.js/">node.js</a>
+<a class="tag" href="https://codeshack.io/tag/express/">express</a>
+<a class="tag" href="https://codeshack.io/tag/cookie/">cookie</a>
+<a class="tag" href="https://codeshack.io/tag/contact/">contact</a>
+<a class="tag" href="https://codeshack.io/tag/content-locker/">content locker</a>
+<a class="tag" href="https://codeshack.io/tag/freebies/">freebies</a>
+<a class="tag" href="https://codeshack.io/tag/gallery-system/">gallery system</a>
+<a class="tag" href="https://codeshack.io/tag/voting-system/">voting system</a>
+<a class="tag" href="https://codeshack.io/tag/snippet/">snippet</a>
+<a class="tag" href="https://codeshack.io/tag/table/">table</a>
+<a class="tag" href="https://codeshack.io/tag/database/">database</a>
+<a class="tag" href="https://codeshack.io/tag/python/">python</a>
+<a class="tag" href="https://codeshack.io/tag/register/">register</a>
+<a class="tag" href="https://codeshack.io/tag/sessions/">sessions</a>
+<a class="tag" href="https://codeshack.io/tag/poll-system/">poll system</a>
+<a class="tag" href="https://codeshack.io/tag/crud/">crud</a>
+<a class="tag" href="https://codeshack.io/tag/pagination/">pagination</a>
+</div>
+</div>
+<!--
+				<div style="text-align:center;padding-bottom:20px;">
+					<ins class="adsbygoogle"
+					     style="display:block"
+					     data-ad-client="ca-pub-5334209985480891"
+					     data-ad-slot="9686781041"
+					     data-ad-format="rectangle"
+					     data-full-width-responsive="true"></ins>
+					<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+				</div>
+				-->
+</aside>
+</div>
+<footer class="footer cf m100">
+<div class="cf m100">
+<div class="mhide">
+<h2>CodeShack.io</h2>
+<a href="https://codeshack.io/tutorials/">Tutorials</a><br>
+<a href="https://codeshack.io/examples/">Examples</a><br>
+<a href="https://codeshack.io/references/">References</a><br>
+<a href="https://codeshack.io/tools/">Tools</a>
+</div>
+<div class="mhide">
+<h2 style="visibility:hidden;">.</h2>
+<a href="https://codeshack.io/code-editor/">Live Code Editor</a><br>
+<a href="https://codeshack.io/json-formatter/">JSON Formatter</a><br>
+<a href="https://codeshack.io/json-minifier/">JSON Minifier</a><br>
+<a href="https://codeshack.io/json-sorter/">JSON Sorter</a>
+</div>
+<div class="mhide">
+<h2 style="visibility:hidden;">.</h2>
+<a href="https://codeshack.io/about/">About Us</a><br>
+<a href="https://codeshack.io/contact/">Contact Us</a><br>
+<a href="https://codeshack.io/privacy-policy/">Privacy Policy</a><br>
+<a href="https://codeshack.io/terms/">Terms</a>
+</div>
+<div class="m100 mcenter mnofloat">
+<h2>Follow Us</h2>
+<div class="share share-alt">
+<a target="_blank" href="https://www.facebook.com/codeshackio/" class="fb"><i class="fab fa-facebook-f"></i></a>
+<a target="_blank" href="https://twitter.com/codeshackio" class="tw"><i class="fab fa-twitter"></i></a>
+</div>
+<span>© 2020 CodeShack. All Rights Reserved.</span>
+</div>
+</div>
+</footer>
+<div class="favs-list" style="display: none;">
+<div class="m100">
+<div class="m100">
+<div class="cf">
+<i class="fas fa-star"></i>
+</div>
+<div class="cf favs-links">You have no favorites</div>
+</div>
+</div>
+</div>
+<script type="text/javascript" data-pagespeed-no-defer="">pagespeed.lazyLoadImages.overrideAttributeFunctions();</script><script async="" src="./Basic Login System with Node.js, Express, and MySQL_files/js"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-116138833-1');</script>
+<script>var DEFAULT_URL="https://codeshack.io/";</script>
+<script src="./Basic Login System with Node.js, Express, and MySQL_files/script.min.js,qv=4.0.4.pagespeed.jm.ksCLRbZqVh.js.download"></script>
+<script>var disqus_config=function(){this.page.url='https://codeshack.io/basic-login-system-nodejs-express-mysql/';this.page.identifier=68;};(function(){var d=document,s=d.createElement('script');s.src='https://codeshack.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();(function(){if(!isMobile()){var d=document,s=d.createElement('script');s.src='https://codeshack.io/web/js/codesyntaxhighlight.js?v=1.2.0';s.setAttribute('defer','defer');(d.head||d.body).appendChild(s);}else{var css='pre,code{background-color:#F4F5F7;margin-top:6px;padding:5px;}';var e=document.createElement('style');e.setAttribute('type','text/css');if('textContent'in e){e.textContent=css;}else{e.styleSheet.cssText=css;}document.head.appendChild(e);}})();</script>
+
+
+<cloudflare-app app="cookiless" style="z-index: 1001;"><cookiless-div class="ckcontent" style="opacity: 0.8463;"><policy-text>By using this website, you agree that we and our partners may set cookies for purposes such as customising content and advertising.</policy-text><a class="iAccept">I Understand</a></cookiless-div></cloudflare-app><iframe __idm_frm__="62" style="display: none;" src="./Basic Login System with Node.js, Express, and MySQL_files/saved_resource(1).html"></iframe></body></html>

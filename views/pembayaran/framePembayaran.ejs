@@ -1,0 +1,86 @@
+<h4 id="judul">Pembayaran</h4>
+<!-- <div class="card">
+    <div class="card-body" id="pilihMeja" onchange="detailMeja()">
+    </div>
+</div> -->
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" colspan="2" id="pilihMeja" onchange="detailMeja()">#</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Total Yang Harus Dibayarkan</td>
+                <td class="text-right" ><h5 id="total">0</h5></td>
+              </tr>
+              <tr>
+                <td>Uang Pembayaran</td>
+                <td class="text-right" ><input type="number" class="form-control" id="pembayaran" onchange="hitungKembalian()"></td>
+              </tr>
+              <tr>
+                <td>Kembalian</td>
+                <td class="text-right" ><h5 id="kembalian" class="btn btn-success">0</h5></td>                
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-success" onclick="selesai()">Selesai</button>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        pilihMeja();
+    });
+
+    function pilihMeja(){
+        $('#pilihMeja').load('/loadMeja');
+       
+    }
+
+    function detailMeja(){
+        let kode = $('#pilihMeja :selected').val()
+        $.ajax({
+            url: '/detailMeja',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({nomorTrx: kode}),
+            success: function(data){
+                $('#total').text(data[0].total)
+            }
+        })
+    }
+
+    function hitungKembalian(){
+        let uang = $('#pembayaran').val();
+        let kurang = $('#total').text();
+        let kembalian = uang - kurang;
+        $('#kembalian').text(kembalian);
+    }
+
+    function selesai(){
+        if($('#kembalian').text()<=0){
+            alert('Uang Tidak Cukup');
+        }else{
+            let kode = $('#pilihMeja :selected').val()
+            $.ajax({
+                url: '/trxSelesai',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({nomorTrx: kode, status: 3}),
+                success: function(data){
+                    if(data=='OK!'){
+                        pilihMeja();
+                        $('#pembayaran').val();
+                        $('#total').text('0');
+                        $('#kembalian').text('0');
+                        alert('Data Disimpan!');
+                    }
+                }
+            })
+        }
+    }
+    
+</script>

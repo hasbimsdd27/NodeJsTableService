@@ -1,0 +1,300 @@
+<h4>Menu</h4>
+<div class="card mt-2">
+      <div class="card-header">
+          <div class="row">
+              <div class="col">
+                  <h5>List Menu</h5>
+              </div>
+              <div class="col text-right">
+                  <button class="btn btn-success" data-toggle="modal" data-target="#modalTambah">Tambah Menu</button>
+              </div>
+          </div>
+      </div>
+      <div class="card-body">
+        <table class="table">
+            <thead class="thead-white">
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Menu</th>
+                <th scope="col">Stok</th>
+                <th scope="col">Harga</th>
+                <th scope="col">Aksi</th>
+                
+              </tr>
+            </thead>
+            <tbody id="loadAllMenu">
+            </tbody>
+          </table>
+      </div>
+  </div>
+
+  <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEdit">Edit Menu</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" readonly class="form-control" id="idMenu1">
+            <div class="form-group">
+                <label for="namaMenu1">Nama Menu</label>
+                <input type="text" class="form-control" id="namaMenu1">
+            </div>
+            <div class="form-group">
+                <label for="jenismenu1">Jenis Menu</label>
+                <select class="form-control" id="jenismenu1">
+                </select>
+              </div>
+            <div class="form-group">
+                <label for="stokMenu">Stok</label>
+                <input type="number" class="form-control" id="stokMenu1">
+            </div>
+            <div class="form-group">
+                <label for="hargaMenu">Harga</label>
+                <input type="number" class="form-control" id="hargaMenu1">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="tutupModal1">Tutup</button>
+          <button type="button" class="btn btn-primary" onclick="updateMenu()">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEdit">Tambah Menu</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="namaMenu1">Nama Menu</label>
+                <input type="text" class="form-control" id="namaMenu2">
+            </div>
+            <div class="form-group">
+                <label for="jenismenu2">Jenis Menu</label>
+                <select class="form-control" id="jenismenu2">
+                </select>
+              </div>
+            <div class="form-group">
+                <label for="stokMenu">Stok</label>
+                <input type="number" class="form-control" id="stokMenu2">
+            </div>
+            <div class="form-group">
+                <label for="hargaMenu">Harga</label>
+                <input type="number" class="form-control" id="hargaMenu2">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="tutupModal2">Tutup</button>
+          <button type="button" class="btn btn-primary" onclick="tambahMenu()">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+      $(document).ready(function(){
+          loadMenu();
+          loadAllMenu();
+          loadJenisMenu();
+      });
+
+      function loadMenu(){
+        $.ajax({
+            url: '/getAllMenu',
+            method: 'GET',
+            contentType: 'application/json',
+            success: function(data){
+                let dataMenu = '<option value="">-Pilih Menu-</option>';
+                for(let i=0; i<= data.length-1; i++){
+                    dataMenu +=
+                    '<option value="'+data[i].id+'">'+data[i].nama+'</option>'
+                }
+                $('#listMenu').append(dataMenu);
+            } 
+          });
+      }
+
+      function loadAllMenu(){
+        $.ajax({
+            url: '/getAllMenu',
+            method: 'GET',
+            contentType: 'application/json',
+            success: function(data){
+                let allMenu = '';
+                let no=1;
+                for(let i=0; i<= data.length-1; i++){
+                    allMenu +=
+                    '<tr>'+
+                        '<td>'+no+'</td>'+
+                        '<td>'+data[i].nama+'</td>'+
+                        '<td>'+data[i].stok+'</td>'+
+                        '<td>'+data[i].harga+'</td>'+
+                        '<td>'+
+                            '<button class="btn btn-success ml-2" id="btnEdit"  onClick="btnEdit('+data[i].id+')" data-toggle="modal" data-target="#modalEdit">Edit</button>'+
+                            '<button class="btn btn-danger ml-2" id="btnHapus" onClick="btnHapus('+data[i].id+')">Hapus</button>'
+                            +'</td>'+
+                    '</tr>'
+                    no++;
+                }
+
+                $('#loadAllMenu').append(allMenu);
+            } 
+          });
+      }
+
+      function cekStok(){
+          let idMenu = $('#listMenu :selected').val();
+          $.ajax({
+              url: '/getStokMenu',
+              method: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({id: idMenu}),
+              success: function(data){
+                $('#stokMenu').val(data[0].stok);
+              }
+
+          })
+      }
+
+      function resetAll(){
+          $('#loadAllMenu').html('');
+          $('#listMenu').html('');
+          $('#stokMenu').val(0);
+          $('#tambahStok').val(0);
+          loadMenu();
+          loadAllMenu();
+      }
+
+      function tambahStok(){
+          let idMenu = $('#listMenu :selected').val();
+          let stokLama = $('#stokMenu').val();
+          let stokTambah = $('#tambahStok').val();
+          if(stokTambah <= 0){
+              alert('Stok Tambahan Tidak Boleh 0');
+          }else{
+              let stokBaru = parseInt(stokLama) + parseInt(stokTambah);
+              $.ajax({
+                url: '/menuTambahStok',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({stok: stokBaru, id: idMenu}),
+                success: function(data){
+                    if(data=='OK!'){
+                       resetAll();
+                    }
+                }
+            })
+          }
+      }
+
+      function btnEdit(idMenu){
+          $.ajax({
+          url: '/detailMenu',
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({id: idMenu}),
+          success: function(data){
+            $('#idMenu1').val(data[0].id);
+            $('#namaMenu1').val(data[0].nama);
+            $('#jenismenu1').val(data[0].jenis);
+            $('#stokMenu1').val(data[0].stok);
+            $('#hargaMenu1').val(data[0].harga);
+          }
+      })
+      }
+
+      function loadJenisMenu(){
+        $.ajax({
+          url: '/loadJenis',
+          method: 'GET',
+          contentType: 'application/json',
+          success: function(data){
+            let dataJenis = '<option value="">-Pilih Jenis-</option>';
+            for(let i=0; i<=data.length-1; i++){
+                dataJenis +=
+                '<option value="'+data[i].id+'">'+data[i].nama+'</option>'
+            }
+          $('#jenismenu1').append(dataJenis);
+          $('#jenismenu2').append(dataJenis);
+          }
+        })
+      }
+
+      function btnHapus(idMenu){
+          $.ajax({
+              url: '/hapusMenu',
+              method: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({id: idMenu}),
+              success: function(data){
+                  if(data == 'OK!'){
+                      alert('Data Berhasil Dihapus');
+                      resetAll();
+                  }
+              }
+
+          })
+      }
+      function tambahMenu(){
+          let namaMenu = $('#namaMenu2').val();
+          let jenisMenu = $('#jenismenu2 :selected').val();
+          let hargaMenu = $('#hargaMenu2').val();
+          let stokMenu = $('#stokMenu2').val();
+          $.ajax({
+              url: '/tambahMenu',
+              method: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({nama: namaMenu, jenis: jenisMenu, harga: hargaMenu, stok: stokMenu}),
+              success: function(data){
+                  if(data == 'OK!'){
+                      alert('Data Berhasil Disimpan');
+                      resetAll();
+                      $('#tutupModal2').click();
+                      $('#namaMenu2').val('');
+                      $('#jenismenu2').val('');
+                      $('#hargaMenu2').val('');
+                      $('#stokMenu2').val('');
+                  }
+              }
+
+          })
+      }
+
+      function updateMenu(){
+          let idMenu = $('#idMenu1').val();
+          let namaMenu = $('#namaMenu1').val();
+          let jenisMenu = $('#jenismenu1 :selected').val();
+          let hargaMenu = $('#hargaMenu1').val();
+          let stokMenu = $('#stokMenu1').val();
+          $.ajax({
+              url: '/updateMenu',
+              method: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({id: idMenu, nama: namaMenu, jenis: jenisMenu, harga: hargaMenu, stok: stokMenu}),
+              success: function(data){
+                  if(data == 'OK!'){
+                      alert('Data Berhasil Disimpan');
+                      resetAll();
+                      $('#tutupModal1').click();
+                      $('#namaMenu1').val('');
+                      $('#jenismenu1').val('');
+                      $('#hargaMenu1').val('');
+                      $('#stokMenu1').val('');
+                      $('#idMenu1').val('');
+                  }
+              }
+
+          })
+      }
+  </script>

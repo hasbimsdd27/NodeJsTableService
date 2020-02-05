@@ -1,0 +1,113 @@
+<div class="card">
+  <input type="hidden" readonly class="form-control" id="kode">
+    <div class="card-body">
+      <div class="form-group">
+        <label for="pemesan">Nama Pemesan</label>
+        <input type="text" class="form-control" id="pemesan">
+      </div>
+      
+      <input type="hidden" class="form-control" id="kode">
+          <div class="form-group">
+              <label for="listMeja">Nomor Meja</label>
+              <select class="form-control" id="listMeja">
+                <option value="">-Pilih Meja-</option>
+                <% dataMeja.forEach((v)=>{%>
+                  <option value="<%= v.id %>"><%= v.nama %></option>
+                <%})%>
+              </select>
+            </div>
+  
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="listMenu">Nama Menu</label>
+                  <select class="custom-select" id="listMenu" onchange="cekHarga()">
+                    <option value="">-Pilih Menu-</option>
+                    <% dataMenu.forEach((v)=>{%>
+                    <option value="<%= v.id %>"><%= v.nama %></option>
+                    <%})%>
+                  </select>    
+              </div>
+  
+              <div class="col-md-6">
+                <label for="">Jumlah</label>
+                <div class="row ml-3">
+                  <div class="col-md-2">
+                    <button class="btn btn-danger" onclick="kurang()"> - </button>
+                  </div>
+  
+                  <div class="col-md-4">
+                    <h3 class="text-right" id="jumlahPesanan">1</h3>
+                  </div>
+                 
+                 <div class="col-md-2">
+                  <button class="btn btn-success" onclick="tambah()"> + </button>
+                 </div>
+                  
+                </div>
+              </div>
+            </div>
+                    
+          </div>
+          <div class="form-group">
+              <label for="hargaSatuan">Harga Satuan</label>
+              <input type="number" class="form-control" readonly id="hargaSatuan" value="0">
+          </div>
+  
+            <div class="form-group">
+              <label for="totalHarga">Total Harga</label>
+              <input type="number" class="form-control" readonly id="totalHarga" value="0">
+          </div>
+          <button type="submit" class="btn btn-primary" onclick="prosesPesanan()">Submit</button>
+      </div>
+    </div>
+  
+    <div class="card mt-3">
+      <div class="card-header">
+        <div class="row">
+          <div class="col">
+            <h4>List Pesanan</h4>
+          </div>
+          <div class="col">
+            <div class="row">
+              <div class="col">
+                <h4>Jumlah</h4>
+              </div>
+              <h4 class="text-right" id="totalPembayaran"></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+         <table class="table mt-2">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Pesanan</th>
+              <th scope="col">Jumlah</th>
+              <th scope="col">Harga</th>
+              <th scope="col">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="listPesanan">
+          </tbody>
+        </table>
+        <button class="btn btn-success" onclick="lanjutkanPesanan()">Proses Pesanan</button>
+      </div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      kodeTrx();
+    });
+    function kodeTrx(){
+      let length = 18;
+      let result = '';
+      let char = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      for (let i=0;i<=length;i++){
+        let range = Math.floor(Math.random()*char.length);
+        result += char.substring(range,range+1)
+      }
+      $('#kode').val(result);
+    }
+  </script>
